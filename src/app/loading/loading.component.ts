@@ -1,6 +1,5 @@
-import {Component, inject, Signal} from "@angular/core";
+import {Component} from "@angular/core";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {LoadingService} from "./loading.service";
 
 @Component({
     selector: "loading",

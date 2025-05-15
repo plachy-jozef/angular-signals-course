@@ -1,4 +1,4 @@
-import {Component, effect, inject, resource, signal} from "@angular/core";
+import {Component, effect, signal} from "@angular/core";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {environment} from "../../environments/environment";
 import {Lesson} from "../models/lesson.model";

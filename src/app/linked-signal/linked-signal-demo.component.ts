@@ -1,4 +1,4 @@
-import {Component, effect, linkedSignal, signal} from "@angular/core";
+import {Component, signal} from "@angular/core";
 
 @Component({
   selector: 'linked-signal-demo',

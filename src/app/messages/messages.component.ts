@@ -1,5 +1,4 @@
-import {Component, inject} from "@angular/core";
-import {MessagesService} from "./messages.service";
+import {Component} from "@angular/core";
 import {NgClass} from "@angular/common";
 
 @Component({
