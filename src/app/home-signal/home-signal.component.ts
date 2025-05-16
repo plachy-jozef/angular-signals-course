@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 type Counter = {
@@ -12,12 +12,12 @@ type Counter = {
   styleUrl: './home-signal.component.scss'
 })
 export class HomeSignalComponent {
-  counter = signal<Counter>({
-    value: 0
-  });
+  values: WritableSignal<number[]> = signal<number[]>([0]);
 
-  increment() {
-    this.counter
-      .update((value: Counter) => ({ ...value, value: value.value + 1 }));
+  append() {
+    this.values.update((values: number[]): number[] => ([
+      ...values,
+      values[values.length - 1] + 1
+    ]))
   }
 }
