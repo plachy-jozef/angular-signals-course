@@ -1,9 +1,6 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, computed, signal, WritableSignal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
-type Counter = {
-  value: number
-}
 
 @Component({
   selector: 'home-signal',
@@ -12,12 +9,14 @@ type Counter = {
   styleUrl: './home-signal.component.scss'
 })
 export class HomeSignalComponent {
-  values: WritableSignal<number[]> = signal<number[]>([]);
+  counter: WritableSignal<number> = signal(0);
 
-  append() {
-    this.values.update((values: number[]): number[] => ([
-      ...values,
-      values.length === 0 ? 0 : values[values.length - 1] + 1
-    ]))
+  tenXCounter = computed(() => {
+    const value = this.counter();
+    return value * 10;
+  })
+
+  increment() {
+    this.counter.update(value => value + 1);
   }
 }
