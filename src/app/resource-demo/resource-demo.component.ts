@@ -1,14 +1,13 @@
-import {Component, effect, signal} from "@angular/core";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {environment} from "../../environments/environment";
-import {Lesson} from "../models/lesson.model";
+import { Component, effect, signal } from "@angular/core";
+import { environment } from "../../environments/environment";
+import { Lesson } from "../models/lesson.model";
 
 
 @Component({
   selector: 'resource-demo',
   templateUrl: './resource-demo.component.html',
   styleUrls: ['./resource-demo.component.scss'],
-  imports: [MatProgressSpinner]
+  imports: []
 })
 export class ResourceDemoComponent {
 
@@ -21,7 +20,7 @@ export class ResourceDemoComponent {
   constructor() {
 
     effect(() => {
-      console.log('searching lessons:', this.search() );
+      console.log('searching lessons:', this.search());
     })
   }
 
