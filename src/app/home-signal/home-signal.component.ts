@@ -12,12 +12,12 @@ type Counter = {
   styleUrl: './home-signal.component.scss'
 })
 export class HomeSignalComponent {
-  values: WritableSignal<number[]> = signal<number[]>([0]);
+  values: WritableSignal<number[]> = signal<number[]>([]);
 
   append() {
     this.values.update((values: number[]): number[] => ([
       ...values,
-      values[values.length - 1] + 1
+      values.length === 0 ? 0 : values[values.length - 1] + 1
     ]))
   }
 }
