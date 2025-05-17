@@ -6,7 +6,7 @@ import { Course } from "../models/course.model";
   providedIn: "root"
 })
 export class CoursesService {
-  async getAllCourses(): Promise<Course | []> {
+  async getAllCourses(): Promise<Course[] | []> {
     return [];
   }
 }

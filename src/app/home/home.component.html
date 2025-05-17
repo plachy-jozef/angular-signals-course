@@ -1,11 +1,15 @@
 <div class="courses-panel">
   <h3>All Courses:</h3>
 
-  <button class="btn">Add Course</button>
+  <button class="btn" (click)="loadCourses()">Add Course</button>
 
-  <mat-tab-group>
-    <mat-tab label="Beginners"> </mat-tab>
-
-    <mat-tab label="Advanced"> </mat-tab>
+  <mat-tab-group *ngFor="let course of courses()">
+    <mat-tab label="Course {{ course.id }}">
+      <div class="course-card">
+        <h4>{{ course.title }}</h4>
+        <p>{{ course.longDescription }}</p>
+        <button class="btn">Enroll</button>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>
