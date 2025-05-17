@@ -14,8 +14,18 @@ export class HomeSignalComponent {
   effectRef: EffectRef | null = null;
 
   constructor() {
-    this.effectRef = effect(() => {
-      console.log('Counter changed:', this.counter());
+    this.effectRef = effect((onCleanup) => {
+      const counter = this.counter();
+
+      const timeout = setTimeout(() => {
+        console.log(`counter value: ${ counter }`);
+      }, 1000);
+
+      onCleanup(() => {
+        console.log(`Calling clear timeout`);
+        // Clear the timeout if the effect is cleaned up before it runs
+        clearTimeout(timeout);
+      });
     });
   }
 
@@ -24,6 +34,7 @@ export class HomeSignalComponent {
   }
 
   cleanup() {
+    console.log('Cleaning up effect');
     this.effectRef?.destroy();
   }
 
