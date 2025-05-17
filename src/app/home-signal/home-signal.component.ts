@@ -13,7 +13,7 @@ export class HomeSignalComponent {
 
   constructor() {
     effect(() => {
-      console.log('Counter changed:', this.counter());
+      console.log('Counter initial:', this.counter());
     });
   }
 
