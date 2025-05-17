@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, afterNextRender, inject, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import { Course } from '../models/course.model';
-import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'home',
@@ -17,7 +17,7 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 export class HomeComponent {
   courses = signal<Course[] | []>([]);
 
-  coursesService = inject(CoursesServiceWithFetch);
+  coursesService = inject(CoursesService);
 
   constructor() {
     afterNextRender(() => {
