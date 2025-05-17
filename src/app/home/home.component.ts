@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, afterNextRender, inject, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import { Course } from '../models/course.model';
 import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
@@ -14,13 +14,15 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   courses = signal<Course[] | []>([]);
 
   coursesService = inject(CoursesServiceWithFetch);
 
-  ngOnInit(): void {
-    // this.loadCourses();
+  constructor() {
+    afterNextRender(() => {
+      this.loadCourses();
+    });
   }
 
   async loadCourses() {
