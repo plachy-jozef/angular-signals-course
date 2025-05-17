@@ -19,4 +19,19 @@ export class CoursesService {
     const response = await firstValueFrom(courses$);
     return response.courses || [];
   }
+
+  async postCourse(course: Partial<Course>): Promise<Course> {
+    const response$: Observable<Course> = this.http.post<Course>(`${ this.env.apiRoot }/course`, course);
+    return firstValueFrom(response$);
+  }
+
+  async putCourse(courseId: string, course: Partial<Course>): Promise<Course> {
+    const response$: Observable<Course> = this.http.put<Course>(`${ this.env.apiRoot }/course/${ courseId }`, course);
+    return firstValueFrom(response$);
+  }
+
+  async deleteCourse(courseId: string): Promise<void> {
+    const response$: Observable<void> = this.http.delete<void>(`${ this.env.apiRoot }/courses/${ courseId }`);
+    return firstValueFrom(response$);
+  }
 }
