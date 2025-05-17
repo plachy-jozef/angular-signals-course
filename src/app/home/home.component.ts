@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, afterNextRender, inject, signal } from '@angular/core';
+import { Component, Signal, afterNextRender, computed, effect, inject, signal } from '@angular/core';
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
+import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
 import { Course } from '../models/course.model';
 import { CoursesService } from '../services/courses.service';
 
@@ -9,26 +10,40 @@ import { CoursesService } from '../services/courses.service';
   imports: [
     MatTabGroup,
     MatTab,
-    CommonModule
+    CommonModule,
+    CoursesCardListComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  courses = signal<Course[] | []>([]);
+  readonly #courses = signal<Course[] | []>([]);
 
-  coursesService = inject(CoursesService);
+  readonly coursesService = inject(CoursesService);
+
+  readonly beginnerCourses: Signal<Course[] | []> = computed(() => {
+    return this.#courses().filter((course: Course) => course.category === 'BEGINNER') || [];
+  });
+
+  readonly advancedCourses: Signal<Course[] | []> = computed(() => {
+    return this.#courses().filter((course: Course) => course.category === 'ADVANCED') || [];
+  });
 
   constructor() {
     afterNextRender(() => {
       this.loadCourses();
+    });
+
+    effect(() => {
+      console.log('Beginner course:', this.beginnerCourses());
+      console.log('Advanced course:', this.advancedCourses());
     });
   }
 
   async loadCourses() {
     try {
       const courses = await this.coursesService.getAllCourses();
-      this.courses.set(courses);
+      this.#courses.set(courses);
     } catch (error) {
       console.error("Error loading courses:", error);
     }
