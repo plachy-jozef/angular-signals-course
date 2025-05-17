@@ -1,4 +1,4 @@
-import { afterNextRender, Component, effect, inject, Injector, signal, WritableSignal } from '@angular/core';
+import { Component, effect, EffectRef, signal, WritableSignal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 
@@ -11,21 +11,20 @@ import { MatTabsModule } from '@angular/material/tabs';
 export class HomeSignalComponent {
   counter: WritableSignal<number> = signal(0);
 
-  injector = inject(Injector);
+  effectRef: EffectRef | null = null;
 
   constructor() {
-    afterNextRender(() => {
-
-      effect(() => {
-        console.log('Counter changed:', this.counter());
-      }, {
-        injector: this.injector
-      });
+    this.effectRef = effect(() => {
+      console.log('Counter changed:', this.counter());
     });
   }
 
   increment() {
     this.counter.update(value => value + 1);
+  }
+
+  cleanup() {
+    this.effectRef?.destroy();
   }
 
 }
