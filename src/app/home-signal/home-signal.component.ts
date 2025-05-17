@@ -1,4 +1,4 @@
-import { Component, computed, signal, WritableSignal } from '@angular/core';
+import { Component, effect, signal, WritableSignal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 
@@ -11,12 +11,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 export class HomeSignalComponent {
   counter: WritableSignal<number> = signal(0);
 
-  tenXCounter = computed(() => {
-    const value = this.counter();
-    return value * 10;
-  })
+  constructor() {
+    effect(() => {
+      console.log('Counter changed:', this.counter());
+    });
+  }
 
   increment() {
     this.counter.update(value => value + 1);
   }
+
 }
