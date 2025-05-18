@@ -2,26 +2,13 @@
   <h3>All Courses:</h3>
 
   <button class="btn" (click)="loadCourses()">Add Course</button>
-
   <mat-tab-group>
     <mat-tab label="Beginners">
       <courses-card-list [courses]="beginnerCourses()"></courses-card-list>
-
-      <!-- <div class="course-card" *ngFor="let course of beginnerCourses()">
-        <h4>{{ course.title }}</h4>
-        <p>{{ course.longDescription }}</p>
-        <button class="btn">Enroll</button>
-      </div> -->
     </mat-tab>
 
     <mat-tab label="Advanced">
       <courses-card-list [courses]="advancedCourses()"></courses-card-list>
-
-      <!-- <div class="course-card" *ngFor="let course of advancedCourses()">
-        <h4>{{ course.title }}</h4>
-        <p>{{ course.longDescription }}</p>
-        <button class="btn">Enroll</button>
-      </div> -->
     </mat-tab>
   </mat-tab-group>
 </div>
