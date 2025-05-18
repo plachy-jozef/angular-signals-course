@@ -26,6 +26,8 @@ export class CoursesCardListComponent {
         course
       }
     )
+
+    console.log('Updated course:', newCourse);
   }
 
 }
