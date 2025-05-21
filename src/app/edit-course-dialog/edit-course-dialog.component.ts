@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
 import { firstValueFrom } from 'rxjs';
 import { LoadingIndicatorComponent } from "../loading/loading.component";
-import { LoadingService } from '../loading/loading.service';
+import { MessagesService } from '../messages/messages.service';
 import { CourseCategory } from '../models/course-category.model';
 import { Course } from '../models/course.model';
 import { CoursesService } from '../services/courses.service';
@@ -34,7 +34,7 @@ export class EditCourseDialogComponent {
   })
 
   apiService = inject(CoursesService);
-  loadingService = inject(LoadingService);
+  messageService = inject(MessagesService);
 
   category = signal<CourseCategory>('BEGINNER');
 
@@ -71,32 +71,24 @@ export class EditCourseDialogComponent {
 
   async saveCourse(courseId: string, course: Partial<Course>) {
     try {
-      this.loadingService.loadingOn();
       const updatedCourse = await this.apiService.putCourse(courseId, course);
       this.dialogRef.close(updatedCourse);
     }
     catch (error) {
+      this.messageService.showMessage('Error saving course', 'error');
       console.error("Error saving course:", error);
-      alert('Course failed to save');
-    }
-    finally {
-      this.loadingService.loadingOff();
     }
   }
 
   async createCourse(newCourse: Partial<Course>) {
     try {
-      this.loadingService.loadingOn();
       const courseId = await this.apiService.postCourse(newCourse);
       newCourse.id = courseId.id;
       this.dialogRef.close(newCourse);
     }
     catch (error) {
+      this.messageService.showMessage('Error creating course', 'error');
       console.error("Error creating course:", error);
-      alert('Course failed to create');
-    }
-    finally {
-      this.loadingService.loadingOff();
     }
   }
 }

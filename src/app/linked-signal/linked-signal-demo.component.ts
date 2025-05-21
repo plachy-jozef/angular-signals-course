@@ -1,4 +1,4 @@
-import {Component, signal} from "@angular/core";
+import { Component, signal } from "@angular/core";
 
 @Component({
   selector: 'linked-signal-demo',
@@ -38,7 +38,7 @@ export class LinkedSignalDemoComponent {
   }
 
   onArticleAdded() {
-    alert(`${this.quantity()} licenses added for ${this.selectedCourse()}`)
+    alert(`${ this.quantity() } licenses added for ${ this.selectedCourse() }`)
 
   }
 

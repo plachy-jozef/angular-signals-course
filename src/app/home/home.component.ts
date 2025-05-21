@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
-import { LoadingService } from '../loading/loading.service';
+import { MessagesService } from '../messages/messages.service';
 import { Course, sortCoursesBySeqNo } from '../models/course.model';
 import { CoursesService } from '../services/courses.service';
 
@@ -32,8 +32,9 @@ export class HomeComponent {
     return this.#courses().filter((course: Course) => course.category === 'ADVANCED') || [];
   });
 
+  messageService = inject(MessagesService);
+
   dialog = inject(MatDialog);
-  loadingService = inject(LoadingService);
 
   constructor() {
     afterNextRender(() => {
@@ -48,15 +49,12 @@ export class HomeComponent {
 
   async loadCourses() {
     try {
-      this.loadingService.loadingOn();
       const courses = await this.coursesService.getAllCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
     }
     catch (error) {
+      this.messageService.showMessage('Error loading courses', 'error');
       console.error("Error loading courses:", error);
-    }
-    finally {
-      this.loadingService.loadingOff();
     }
   }
 
@@ -72,18 +70,14 @@ export class HomeComponent {
 
   async onCourseDeleted(courseId: string) {
     try {
-      this.loadingService.loadingOn();
       await this.coursesService.deleteCourse(courseId);
       const courses = this.#courses();
       const newCourses = courses.filter((course: Course) => course.id !== courseId);
       this.#courses.set(newCourses);
     }
     catch (error) {
-      alert('Error deleting course');
+      this.messageService.showMessage('Error deleting course', 'error');
       console.error('error', error);
-    }
-    finally {
-      this.loadingService.loadingOff();
     }
   }
 
