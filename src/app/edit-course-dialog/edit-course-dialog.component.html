@@ -1,21 +1,33 @@
 <loading />
 
-<div class="edit-course-form">
-  <h3></h3>
-
+<div class="edit-course-form" [formGroup]="form">
+  <h3>{{ data.title }}</h3>
   <div class="form-control">
-    <label>Course title:</label>
-    <input placeholder="Enter course title" />
+    <label for="title">Course title:</label>
+    <input
+      id="title"
+      placeholder="Enter course title"
+      formControlName="title"
+    />
   </div>
 
   <div class="form-control">
-    <label>Course description:</label>
-    <textarea placeholder="Enter course description"> </textarea>
+    <label for="description">Course description:</label>
+    <textarea
+      id="description"
+      placeholder="Enter course description"
+      formControlName="longDescription"
+    >
+    </textarea>
   </div>
 
   <div class="form-control">
-    <label>Course category:</label>
-    <select>
+    <label for="category">Course category:</label>
+    <select
+      id="category"
+      formControlName="category"
+      aria-label="Course category"
+    >
       <option value="BEGINNER">Beginners</option>
       <option value="INTERMEDIATE">Intermediate</option>
       <option value="ADVANCED">Advanced</option>
@@ -23,12 +35,15 @@
   </div>
 
   <div class="form-control">
-    <label>Course image:</label>
-    <input placeholder="Enter course title" />
+    <label for="iconUrl">Course image:</label>
+    <input
+      id="iconUrl"
+      placeholder="Enter course image URL"
+      formControlName="iconUrl"
+    />
   </div>
-
   <div class="form-actions">
-    <button class="btn">Save</button>
+    <button class="btn" (click)="onSave()">Save</button>
 
     <button class="btn" (click)="onClose()">Cancel</button>
   </div>

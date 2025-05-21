@@ -1,6 +1,6 @@
-import {Request, Response} from 'express';
-import {COURSES, LESSONS} from "./db-data";
-import {setTimeout} from 'timers';
+import { Request, Response } from 'express';
+import { setTimeout } from 'timers';
+import { LESSONS } from "./db-data";
 
 
 export function saveLesson(req: Request, res: Response) {

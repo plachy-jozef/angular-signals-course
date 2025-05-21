@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
 import { Course } from '../models/course.model';
@@ -14,6 +14,8 @@ import { Course } from '../models/course.model';
 })
 export class CoursesCardListComponent {
   courses = input.required<Course[]>();
+  outputedCourse = output<Course>();
+  deletedCourse = output<string>();
 
   dialog = inject(MatDialog);
 
@@ -27,7 +29,14 @@ export class CoursesCardListComponent {
       }
     )
 
-    console.log('Updated course:', newCourse);
+    if (!newCourse) {
+      return;
+    }
+
+    this.outputedCourse.emit(newCourse);
   }
 
+  async onCourseDeleted(course: Course) {
+    this.deletedCourse.emit(course.id);
+  }
 }

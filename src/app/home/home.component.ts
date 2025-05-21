@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Signal, afterNextRender, computed, effect, inject, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
+import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
+import { LoadingService } from '../loading/loading.service';
 import { Course, sortCoursesBySeqNo } from '../models/course.model';
 import { CoursesService } from '../services/courses.service';
 
@@ -29,6 +32,9 @@ export class HomeComponent {
     return this.#courses().filter((course: Course) => course.category === 'ADVANCED') || [];
   });
 
+  dialog = inject(MatDialog);
+  loadingService = inject(LoadingService);
+
   constructor() {
     afterNextRender(() => {
       this.loadCourses();
@@ -42,10 +48,62 @@ export class HomeComponent {
 
   async loadCourses() {
     try {
+      this.loadingService.loadingOn();
       const courses = await this.coursesService.getAllCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
-    } catch (error) {
+    }
+    catch (error) {
       console.error("Error loading courses:", error);
     }
+    finally {
+      this.loadingService.loadingOff();
+    }
+  }
+
+  onOutputedCourse(updatedCourse: Course) {
+    const courses = this.#courses();
+    const newCourses = courses.map((course: Course) =>
+      course.id === updatedCourse.id ? updatedCourse : course
+    );
+
+    console.log('newCourses:', newCourses);
+    this.#courses.update(() => newCourses);
+  }
+
+  async onCourseDeleted(courseId: string) {
+    try {
+      this.loadingService.loadingOn();
+      await this.coursesService.deleteCourse(courseId);
+      const courses = this.#courses();
+      const newCourses = courses.filter((course: Course) => course.id !== courseId);
+      this.#courses.set(newCourses);
+    }
+    catch (error) {
+      alert('Error deleting course');
+      console.error('error', error);
+    }
+    finally {
+      this.loadingService.loadingOff();
+    }
+  }
+
+  async onAddCourse() {
+    const newCourse = await openEditCourseDialog(
+      this.dialog,
+      {
+        mode: 'create',
+        title: 'Create New Course'
+      }
+    );
+
+    if (!newCourse) {
+      return;
+    }
+
+    const newCourses: Course[] = [
+      ...this.#courses(),
+      newCourse
+    ];
+    this.#courses.set(newCourses);
   }
 }
