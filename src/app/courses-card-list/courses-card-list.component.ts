@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, input, output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
@@ -6,11 +6,9 @@ import { Course } from '../models/course.model';
 
 @Component({
   selector: 'courses-card-list',
-  imports: [
-    NgIf
-  ],
+  imports: [CommonModule],
   templateUrl: './courses-card-list.component.html',
-  styleUrl: './courses-card-list.component.scss'
+  styleUrl: './courses-card-list.component.scss',
 })
 export class CoursesCardListComponent {
   courses = input.required<Course[]>();
@@ -20,14 +18,11 @@ export class CoursesCardListComponent {
   dialog = inject(MatDialog);
 
   async onEditCourse(course: Course) {
-    const newCourse = await openEditCourseDialog(
-      this.dialog,
-      {
-        mode: 'update',
-        title: 'Update existing course',
-        course
-      }
-    )
+    const newCourse = await openEditCourseDialog(this.dialog, {
+      mode: 'update',
+      title: 'Update existing course',
+      course,
+    });
 
     if (!newCourse) {
       return;
