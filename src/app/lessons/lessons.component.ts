@@ -1,17 +1,9 @@
-import {Component} from '@angular/core';
-import {LessonDetailComponent} from "./lesson-detail/lesson-detail.component";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'lessons',
-    imports: [
-        LessonDetailComponent
-    ],
-    templateUrl: './lessons.component.html',
-    styleUrl: './lessons.component.scss'
+  selector: 'lessons',
+  imports: [],
+  templateUrl: './lessons.component.html',
+  styleUrl: './lessons.component.scss',
 })
-export class LessonsComponent {
-
-
-
-
-}
+export class LessonsComponent {}

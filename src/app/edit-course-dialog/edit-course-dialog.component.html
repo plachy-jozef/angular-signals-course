@@ -22,16 +22,7 @@
   </div>
 
   <div class="form-control">
-    <label for="category">Course category:</label>
-    <select
-      id="category"
-      formControlName="category"
-      aria-label="Course category"
-    >
-      <option value="BEGINNER">Beginners</option>
-      <option value="INTERMEDIATE">Intermediate</option>
-      <option value="ADVANCED">Advanced</option>
-    </select>
+    <course-category-combobox [label]="'Category'" [(value)]="category" />
   </div>
 
   <div class="form-control">

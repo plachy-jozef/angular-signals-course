@@ -1,12 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MessagesService } from '../messages/messages.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'login',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -30,7 +35,7 @@ export class LoginComponent {
         this.messagesService.showMessage('Please fill in all fields', 'error');
         return;
       }
-      const user = await this.authService.login(email, password);
+      await this.authService.login(email, password);
       await this.router.navigate(['/home']);
     } catch (error) {
       console.error('Login failed', error);

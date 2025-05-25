@@ -1,8 +1,14 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
-import { LoadingIndicatorComponent } from "../loading/loading.component";
+import { CourseCategoryComboboxComponent } from '../course-category-combobox/course-category-combobox.component';
+import { LoadingIndicatorComponent } from '../loading/loading.component';
 import { MessagesService } from '../messages/messages.service';
 import { CourseCategory } from '../models/course-category.model';
 import { Course } from '../models/course.model';
@@ -15,9 +21,10 @@ import { EditCourseDialogData } from './edit-course-dialog.data.model';
   imports: [
     LoadingIndicatorComponent,
     ReactiveFormsModule,
+    CourseCategoryComboboxComponent,
   ],
   templateUrl: './edit-course-dialog.component.html',
-  styleUrl: './edit-course-dialog.component.scss'
+  styleUrl: './edit-course-dialog.component.scss',
 })
 export class EditCourseDialogComponent {
   dialogRef = inject(MatDialogRef<EditCourseDialogComponent>);
@@ -30,8 +37,8 @@ export class EditCourseDialogComponent {
     title: [''],
     longDescription: [''],
     category: [''],
-    iconUrl: ['']
-  })
+    iconUrl: [''],
+  });
 
   apiService = inject(CoursesService);
   messageService = inject(MessagesService);
@@ -42,14 +49,13 @@ export class EditCourseDialogComponent {
     this.form.patchValue({
       title: this.data?.course?.title,
       longDescription: this.data?.course?.longDescription,
-      category: this.data?.course?.category,
-      iconUrl: this.data?.course?.iconUrl
-    })
+      iconUrl: this.data?.course?.iconUrl,
+    });
 
     this.category.set(this.data?.course?.category ?? 'BEGINNER');
 
     effect(() => {
-      console.log(`Course category bi-directional binding: ${ this.category() }`);
+      console.log(`Course category bi-directional binding: ${this.category()}`);
     });
   }
 
@@ -63,20 +69,19 @@ export class EditCourseDialogComponent {
 
     coursePartial.category = this.category();
     if (this.data.mode === 'update') {
-      await this.saveCourse(this.data?.course!.id, coursePartial);
+      await this.updateCourse(this.data?.course!.id, coursePartial);
     } else {
       await this.createCourse(coursePartial);
     }
   }
 
-  async saveCourse(courseId: string, course: Partial<Course>) {
+  async updateCourse(courseId: string, course: Partial<Course>) {
     try {
       const updatedCourse = await this.apiService.putCourse(courseId, course);
       this.dialogRef.close(updatedCourse);
-    }
-    catch (error) {
+    } catch (error) {
       this.messageService.showMessage('Error saving course', 'error');
-      console.error("Error saving course:", error);
+      console.error('Error saving course:', error);
     }
   }
 
@@ -85,15 +90,12 @@ export class EditCourseDialogComponent {
       const courseId = await this.apiService.postCourse(newCourse);
       newCourse.id = courseId.id;
       this.dialogRef.close(newCourse);
-    }
-    catch (error) {
+    } catch (error) {
       this.messageService.showMessage('Error creating course', 'error');
-      console.error("Error creating course:", error);
+      console.error('Error creating course:', error);
     }
   }
 }
-
-
 
 export async function openEditCourseDialog(
   dialog: MatDialog,
@@ -105,7 +107,8 @@ export async function openEditCourseDialog(
   dialogConfig.width = '400px';
   dialogConfig.data = data;
 
-  const close$ = dialog.open(EditCourseDialogComponent, dialogConfig)
+  const close$ = dialog
+    .open(EditCourseDialogComponent, dialogConfig)
     .afterClosed();
 
   return await firstValueFrom(close$);

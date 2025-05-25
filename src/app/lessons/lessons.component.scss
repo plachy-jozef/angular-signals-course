@@ -1,8 +1,8 @@
-@import "../../styles/button";
-@import "../../styles/forms";
+@use "../../styles/button" as button;
+@use "../../styles/forms" as forms;
 
-@include buttonStyles();
-@include formStyles();
+@include button.buttonStyles();
+@include forms.formStyles();
 
 .lessons {
   max-width: 400px;
@@ -41,11 +41,9 @@
     border-bottom: none;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     text-align: left;
   }
 }
-
-
-
