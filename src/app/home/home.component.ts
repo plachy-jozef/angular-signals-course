@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Signal,
-  afterNextRender,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, Signal, afterNextRender, computed, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
@@ -42,11 +34,6 @@ export class HomeComponent {
   constructor() {
     afterNextRender(() => {
       this.loadCourses();
-    });
-
-    effect(() => {
-      console.log('Beginner course:', this.beginnerCourses());
-      console.log('Advanced course:', this.advancedCourses());
     });
   }
 

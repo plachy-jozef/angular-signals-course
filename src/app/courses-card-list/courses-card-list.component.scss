@@ -32,19 +32,29 @@
 .course-actions {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
   padding-bottom: 20px;
 }
 
 .course-actions button {
-  margin-right: 5px;
+  flex-shrink: 0;
 }
 
 .delete {
-  max-height: 30px;
-  border-radius: 15px;
-  margin-left: 5px;
-  margin-top: 3px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
   border: 1px solid #2086fc;
   background: #1f172d;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.delete img {
+  width: 16px;
+  height: 16px;
 }
