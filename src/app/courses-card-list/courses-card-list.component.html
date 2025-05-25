@@ -8,14 +8,20 @@
     <p class="course-description">{{ course.longDescription }}</p>
   </div>
   <div class="course-actions">
-    <button class="btn">VIEW COURSE</button>
+    <button class="btn" [routerLink]="['course', course.id]">
+      VIEW COURSE
+    </button>
     <button class="btn" (click)="onEditCourse(course)">EDIT</button>
-    <img
-      src="/assets/icons/delete.svg"
-      alt="delete"
+    <button
+      type="button"
       class="delete"
       (click)="onCourseDeleted(course)"
-    />
+      (keydown.space)="onCourseDeleted(course)"
+      [attr.aria-label]="'Delete course: ' + course.title"
+      tabindex="0"
+    >
+      <img src="/assets/icons/delete.svg" alt="Delete" />
+    </button>
   </div>
 </div>
 

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { isUserAutheticated } from './auth.guard';
+import { CourseComponent } from './course/course.component';
 import { HomeSignalComponent } from './home-signal/home-signal.component';
 import { HomeComponent } from './home/home.component';
 import { LessonsComponent } from './lessons/lessons.component';
@@ -12,6 +13,10 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
     canActivate: [isUserAutheticated],
+  },
+  {
+    path: 'course/:courseId',
+    component: CourseComponent,
   },
   {
     path: 'home-signal',

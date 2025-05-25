@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
 import { Course } from '../models/course.model';
 
 @Component({
   selector: 'courses-card-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './courses-card-list.component.html',
   styleUrl: './courses-card-list.component.scss',
 })
