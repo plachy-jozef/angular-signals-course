@@ -1,5 +1,5 @@
-@use "../../styles/button" as button;
-@use "../../styles/forms" as forms;
+@use '../../styles/button' as button;
+@use '../../styles/forms' as forms;
 
 @include button.buttonStyles();
 @include forms.formStyles();

@@ -18,11 +18,7 @@ import { EditCourseDialogData } from './edit-course-dialog.data.model';
 @Component({
   selector: 'edit-course-dialog',
   standalone: true,
-  imports: [
-    LoadingIndicatorComponent,
-    ReactiveFormsModule,
-    CourseCategoryComboboxComponent,
-  ],
+  imports: [LoadingIndicatorComponent, ReactiveFormsModule, CourseCategoryComboboxComponent],
   templateUrl: './edit-course-dialog.component.html',
   styleUrl: './edit-course-dialog.component.scss',
 })
@@ -97,19 +93,14 @@ export class EditCourseDialogComponent {
   }
 }
 
-export async function openEditCourseDialog(
-  dialog: MatDialog,
-  data: EditCourseDialogData
-) {
+export async function openEditCourseDialog(dialog: MatDialog, data: EditCourseDialogData) {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
   dialogConfig.width = '400px';
   dialogConfig.data = data;
 
-  const close$ = dialog
-    .open(EditCourseDialogComponent, dialogConfig)
-    .afterClosed();
+  const close$ = dialog.open(EditCourseDialogComponent, dialogConfig).afterClosed();
 
   return await firstValueFrom(close$);
 }

@@ -1,12 +1,11 @@
 import { Component, effect, EffectRef, signal, WritableSignal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
-
 @Component({
   selector: 'home-signal',
   imports: [MatTabsModule],
   templateUrl: './home-signal.component.html',
-  styleUrl: './home-signal.component.scss'
+  styleUrl: './home-signal.component.scss',
 })
 export class HomeSignalComponent {
   counter: WritableSignal<number> = signal(0);
@@ -14,11 +13,11 @@ export class HomeSignalComponent {
   effectRef: EffectRef | null = null;
 
   constructor() {
-    this.effectRef = effect((onCleanup) => {
+    this.effectRef = effect(onCleanup => {
       const counter = this.counter();
 
       const timeout = setTimeout(() => {
-        console.log(`counter value: ${ counter }`);
+        console.log(`counter value: ${counter}`);
       }, 1000);
 
       onCleanup(() => {
@@ -37,5 +36,4 @@ export class HomeSignalComponent {
     console.log('Cleaning up effect');
     this.effectRef?.destroy();
   }
-
 }

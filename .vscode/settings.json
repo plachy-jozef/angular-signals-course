@@ -27,8 +27,19 @@
   "terminal.integrated.mouseWheelZoom": true,
   "editor.mouseWheelZoom": true,
   "editor.linkedEditing": true,
+  "html.autoClosingTags": true,
+  "html.autoCreateQuotes": true,
+  "html.completion.attributeDefaultValue": "doublequotes",
+  "emmet.includeLanguages": {
+    "typescript": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "typescript.suggest.autoImports": true,
+  "html.suggest.html5": true,
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.autoClosingTags": true,
+    "editor.suggest.insertMode": "replace"
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

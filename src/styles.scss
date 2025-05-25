@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -14,12 +14,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $angular-signals-course-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
-$angular-signals-course-accent: mat.m2-define-palette(
-  mat.$m2-pink-palette,
-  A200,
-  A100,
-  A400
-);
+$angular-signals-course-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $angular-signals-course-warn: mat.m2-define-palette(mat.$m2-red-palette);
@@ -51,5 +46,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
