@@ -24,6 +24,14 @@ export class CoursesService {
     return response.courses || [];
   }
 
+  async getCourseById(courseId: string): Promise<Course> {
+    const course$: Observable<Course> = this.http.get<Course>(
+      `${this.env.apiRoot}/courses/${courseId}`
+    );
+
+    return await firstValueFrom(course$);
+  }
+
   async postCourse(course: Partial<Course>): Promise<Course> {
     const response$: Observable<Course> = this.http.post<Course>(
       `${this.env.apiRoot}/courses`,
