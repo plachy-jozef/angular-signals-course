@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular
 import { Course } from '../models/course.model';
 import { CoursesService } from '../services/courses.service';
 
-export const courseResolver: ResolveFn<Course | null> = (
+export const courseResolver: ResolveFn<Course | null> = async (
   route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot
 ) => {

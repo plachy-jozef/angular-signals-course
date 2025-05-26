@@ -5,4 +5,5 @@ export type Lesson = {
   seqNo: number;
   courseId: number;
   videoId: string;
+  title?: string;
 };

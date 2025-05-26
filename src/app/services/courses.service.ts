@@ -21,7 +21,7 @@ export class CoursesService {
       }*/
     );
     const response = await firstValueFrom(courses$);
-    return response.courses || [];
+    return response.courses ?? [];
   }
 
   async getCourseById(courseId: string): Promise<Course> {

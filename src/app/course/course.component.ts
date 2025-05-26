@@ -15,6 +15,7 @@ export class CourseComponent implements OnInit {
   lessons = signal<Lesson[]>([]);
 
   route: ActivatedRoute = inject(ActivatedRoute);
+
   ngOnInit() {
     this.course.set(this.route.snapshot.data['course']);
     this.lessons.set(this.route.snapshot.data['lessons'] ?? []);
