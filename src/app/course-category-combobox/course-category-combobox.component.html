@@ -1,6 +1,17 @@
 <div class="form-control">
-  <label for="category">{{ label() }}</label>
-  <select id="category" #category [value]="value()" (change)="onCategoryChange(category.value)" class="form-select">
+  <!-- standarg -->
+  <!-- <label for="category">{{ label() }}</label> -->
+
+  <!-- content projection -->
+  <ng-content select=".title"></ng-content>
+
+  <select
+    id="category"
+    #category
+    [value]="value()"
+    (change)="onCategoryChange(category.value)"
+    class="form-select"
+  >
     <option value="BEGINNER">Beginners</option>
     <option value="INTERMEDIATE">Intermediate</option>
     <option value="ADVANCED">Advanced</option>

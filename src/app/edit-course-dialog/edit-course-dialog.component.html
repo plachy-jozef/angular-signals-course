@@ -1,28 +1,71 @@
 <loading />
 
-<div class="edit-course-form" [formGroup]="form">
+<div
+  class="edit-course-form"
+  [formGroup]="form"
+>
   <h3>{{ data.title }}</h3>
   <div class="form-control">
     <label for="title">Course title:</label>
-    <input id="title" placeholder="Enter course title" formControlName="title" />
+    <input
+      id="title"
+      placeholder="Enter course title"
+      formControlName="title"
+    />
   </div>
 
   <div class="form-control">
     <label for="description">Course description:</label>
-    <textarea id="description" placeholder="Enter course description" formControlName="longDescription"> </textarea>
+    <textarea
+      id="description"
+      placeholder="Enter course description"
+      formControlName="longDescription"
+    >
+    </textarea>
   </div>
 
   <div class="form-control">
-    <course-category-combobox [label]="'Category'" [(value)]="category" />
+    <course-category-combobox
+      [label]="'Category'"
+      [(value)]="category"
+    >
+      <!-- content projection -->
+      <div
+        class="title"
+        #title
+      >
+        <p>Title</p>
+      </div>
+      <div
+        class="title"
+        #title
+      >
+        <p>Second</p>
+      </div>
+    </course-category-combobox>
   </div>
 
   <div class="form-control">
     <label for="iconUrl">Course image:</label>
-    <input id="iconUrl" placeholder="Enter course image URL" formControlName="iconUrl" />
+    <input
+      id="iconUrl"
+      placeholder="Enter course image URL"
+      formControlName="iconUrl"
+    />
   </div>
   <div class="form-actions">
-    <button class="btn" (click)="onSave()">Save</button>
+    <button
+      class="btn"
+      (click)="onSave()"
+    >
+      Save
+    </button>
 
-    <button class="btn" (click)="onClose()">Cancel</button>
+    <button
+      class="btn"
+      (click)="onClose()"
+    >
+      Cancel
+    </button>
   </div>
 </div>
