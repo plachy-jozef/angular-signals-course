@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, output } from '@angular/core';
+import { Component, effect, ElementRef, inject, input, output, viewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { openEditCourseDialog } from '../edit-course-dialog/edit-course-dialog.component';
@@ -17,6 +17,16 @@ export class CoursesCardListComponent {
   deletedCourse = output<string>();
 
   dialog = inject(MatDialog);
+
+  coursesCards = viewChildren('courseCard', {
+    read: ElementRef,
+  });
+
+  constructor() {
+    effect(() => {
+      console.log('Courses Cards:', this.coursesCards());
+    });
+  }
 
   async onEditCourse(course: Course) {
     const newCourse = await openEditCourseDialog(this.dialog, {

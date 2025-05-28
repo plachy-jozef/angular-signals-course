@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Signal, afterNextRender, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  Signal,
+  afterNextRender,
+  computed,
+  effect,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CoursesCardListComponent } from '../courses-card-list/courses-card-list.component';
@@ -31,9 +40,15 @@ export class HomeComponent {
 
   dialog = inject(MatDialog);
 
+  beginnersList = viewChild<CoursesCardListComponent>('beginnersList');
+
   constructor() {
     afterNextRender(() => {
       this.loadCourses();
+    });
+
+    effect(() => {
+      console.log('beginners List:', this.beginnersList());
     });
   }
 
