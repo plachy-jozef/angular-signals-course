@@ -1,35 +1,42 @@
-<div class="lessons"></div>
-
-@if (mode() === 'master') {
-<div class="header">
-  <h1>Search Lessons</h1>
-  <div class="form-control search-control">
-    <input
-      placeholder="Search for a lesson"
-      (keyup.enter)="onSearch()"
-      #search
-    />
-    <button
-      type="button"
-      (click)="onSearch()"
-      class="btn search"
-    >
-      Search
-    </button>
+<div class="lessons">
+  @if (mode() === 'master') {
+  <div class="header">
+    <h1>Search Lessons</h1>
+    <div class="form-control search-control">
+      <input
+        placeholder="Search for a lesson"
+        (keyup.enter)="onSearch()"
+        #search
+      />
+      <button
+        type="button"
+        (click)="onSearch()"
+        class="btn search"
+      >
+        Search
+      </button>
+    </div>
   </div>
-</div>
 
-@if (lessons().length > 0) {
-<div class="table-container">
-  <table class="results-table">
-    @for(lesson of lessons(); track lesson.id) {
-    <tr>
-      <td>{{ lesson.description }}</td>
-      <td>{{ lesson.duration }}</td>
-    </tr>
-    }
-  </table>
+  @if (lessons().length > 0) {
+  <div class="table-container">
+    <table class="results-table">
+      @for(lesson of lessons(); track lesson.id) {
+      <tr (click)="onLessonSelected(lesson)">
+        <td>{{ lesson.description }}</td>
+        <td>{{ lesson.duration }}</td>
+      </tr>
+      }
+    </table>
+  </div>
+  } @else {
+  <p>No lessons found</p>
+  } } @else {
+
+  <lesson-detail
+    [lesson]="selectedLesson()"
+    (cancel)="onCancel()"
+    (lessonUpdated)="onLessonUpdated($event)"
+  />
+  }
 </div>
-} @else {
-<p>No lessons found</p>
-} } @else { }
